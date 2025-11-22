@@ -1,15 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:folhas_soltas/Inicio.dart';
+import 'Categoria.dart';
+import 'PaginaInicio.dart';
+import 'PaginaCategoria.dart';
 
-class MeuApp extends StatelessWidget{
+class MeuApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context){
+  State<MeuApp> createState() => _MeuAppState();
+}
+
+class _MeuAppState extends State<MeuApp> {
+  int currentPageIndex = 0;
+
+  // lista de categorias
+  List<Categoria> categorias = [
+    Categoria("Default"),
+  ];
+
+  void adicionarCategoria(String nome) {
+    setState(() {
+      categorias.add(Categoria(nome));
+    });
+  }
+
+  void removerCategoria(Categoria categoria) {
+    setState(() {
+      categorias.remove(categoria);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: {
-          '/': (context)=>Inicio()
-        }
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: [
+          PaginaInicio(
+            categorias: categorias,
+          ),
+          PaginaCategoria(
+            categorias: categorias,
+            onAddCategoria: adicionarCategoria,
+            onRemoveCategoria: removerCategoria,
+          ),
+        ][currentPageIndex],
+
+        bottomNavigationBar: NavigationBar(
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          selectedIndex: currentPageIndex,
+          onDestinationSelected: (index) {
+            setState(() => currentPageIndex = index);
+          },
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.home), label: "Inicio"),
+            NavigationDestination(icon: Icon(Icons.explore), label: "Categoria"),
+          ],
+        ),
+      ),
     );
   }
 }

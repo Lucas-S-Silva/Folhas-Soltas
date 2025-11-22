@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
+import 'Categoria.dart';
 
-class Inicio extends StatefulWidget{
+class PaginaInicio extends StatefulWidget{
+  final List<Categoria> categorias;
+
+  PaginaInicio({required this.categorias});
+
   @override
   State<StatefulWidget> createState() {
-    return _InicioState();
+    return _PaginaInicioState();
   }
 }
 
-class _InicioState extends State<Inicio> {
-
+class _PaginaInicioState extends State<PaginaInicio> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
+        length: widget.categorias.length,
         child: buildScaffold(context));
     //return buildScaffold(context);
   }
@@ -21,11 +25,16 @@ class _InicioState extends State<Inicio> {
   Scaffold buildScaffold(context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: buildTabBar(context)
+      body: buildTelaInicial(),
     );
   }
 
   AppBar buildAppBar() {
+    List<Widget> abas = [];
+    widget.categorias.forEach((c) {
+      abas.add(Tab(child: Text(c.nome))
+      );
+    });
     return AppBar(
         title: Text("Folhas Soltas"),
         actions: <Widget>[
@@ -45,20 +54,21 @@ class _InicioState extends State<Inicio> {
           ),
         ],
       bottom: TabBar(
-        tabs: [
-          Tab(child: Text("Default")),
-          Tab(child: Text("Teste")),
-        ],
+        tabs: abas,
       ),
     );
   }
-    @override
-    Widget buildTabBar(context) {
-      return TabBarView(
-            children:[
-              Center(child: Text("Começo")),
-              Center(child: Text("Teste")),
-            ],
-      );
-    }
+
+  Widget buildTelaInicial() {
+    return TabBarView(
+      children: [
+        Center(
+          child: Text(
+            "Conteúdo da categoria:",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      ],
+    );
+  }
 }
