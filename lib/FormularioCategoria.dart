@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:folhas_soltas/Livro.dart';
 
-class Formulario extends StatelessWidget {
+import 'Categoria.dart';
+
+class FormularioCategoria extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var nomeController = TextEditingController();
-  var categoriaController = TextEditingController();
-  var nomeImgController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +16,17 @@ class Formulario extends StatelessWidget {
   }
 
   AppBar buildAppBar() {
-    return AppBar(title: Text("Novo Livro"));
+    return AppBar(title: Text("Novo Categoria"));
   }
 
   FloatingActionButton buildFAB(context) {
     return FloatingActionButton(onPressed: () {
       if (formKey.currentState!.validate()) {
         String nome = nomeController.text;
-        String categoria = categoriaController.text;
-        String nomeImg = nomeImgController.text;
 
-        Livro novoLivro = Livro(nome, categoria, nomeImg);
+        Categoria novoCategoria = Categoria(nome);
         try {
-          Navigator.pop(context, novoLivro);
+          Navigator.pop(context, novoCategoria);
         }catch(e){
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(e.toString()),
@@ -40,7 +37,7 @@ class Formulario extends StatelessWidget {
         }
       }
     },
-        child: Icon(Icons.add));
+        child: Icon(Icons.check));
   }
 
   Form buildForm() {
@@ -59,25 +56,6 @@ class Formulario extends StatelessWidget {
                 }
               },
             ),
-            TextFormField(
-              controller: categoriaController,
-              decoration: InputDecoration(labelText: "Categoria"),
-              validator: (categoria) {
-                if (categoria == null || categoria.isEmpty) {
-                  return "Categoria é obrigatório";
-                }
-              },
-            ),
-            TextFormField(
-              controller: nomeImgController,
-              decoration: InputDecoration(labelText: "Nome da Img"),
-              validator: (nomeImg) {
-                if (nomeImg == null || nomeImg.isEmpty) {
-                  return "Nome da Img é obrigatório, caso não tenha coloque 'default'";
-                }
-
-              },
-            )
           ],
         ),
       ),

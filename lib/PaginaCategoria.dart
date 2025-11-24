@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'Categoria.dart';
 
-
 class PaginaCategoria extends StatefulWidget{
   final List<Categoria> categorias;
   final Function(String) onAddCategoria;
@@ -21,7 +20,6 @@ class PaginaCategoria extends StatefulWidget{
 }
 
 class _PaginaCategoriaState extends State<PaginaCategoria> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,46 +60,19 @@ class _PaginaCategoriaState extends State<PaginaCategoria> {
     return FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          mostrarTelaAdicionarCategoria();
+          Navigator.pushNamed(context, '/formularioCategoria').then((value){
+            Categoria novoCategoria = value as Categoria; // cast
+            widget.onAddCategoria(novoCategoria.nome);
+
+            setState(() {
+            });
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Categoria inserido"),
+                  behavior: SnackBarBehavior.floating,
+                )
+            );
+          });
         }
-    );
-  }
-
-  //  Teste
-
-  Future<void> mostrarTelaAdicionarCategoria() {
-    String NomeCategoria = '';
-    return showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Adicionar Nova Categoria'),
-          content: TextField(
-            onChanged: (text) {
-              NomeCategoria = text;
-            },
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Cancelar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('Adicionar'),
-              onPressed: () {
-                final nome = NomeCategoria.trim();
-
-                if (nome.isNotEmpty) {
-                  widget.onAddCategoria(nome);
-                }
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

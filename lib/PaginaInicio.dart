@@ -6,20 +6,25 @@ import 'PaginaLista.dart';
 
 class PaginaInicio extends StatefulWidget{
   final List<Categoria> categorias;
+  final List<Livro> livros;
+  final Function(Livro) onAddLivro;
+  final Function(Livro) onRemoveLivro;
 
-  PaginaInicio({required this.categorias});
+  PaginaInicio({
+    required this.categorias,
+    required this.livros,
+    required this.onAddLivro,
+    required this.onRemoveLivro,
+  });
 
   @override
   State<StatefulWidget> createState() {
-    return _PaginaInicioState(categorias: categorias);
+    return _PaginaInicioState();
   }
 }
 
 class _PaginaInicioState extends State<PaginaInicio> {
-  final List<Categoria> categorias;
-  List<Livro> livros = [];
 
-  _PaginaInicioState({required this.categorias});
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -48,9 +53,9 @@ class _PaginaInicioState extends State<PaginaInicio> {
             icon: const Icon(Icons.add),
             tooltip: 'Adicionar',
             onPressed: () {
-              Navigator.pushNamed(context, '/formulario').then((value){
+              Navigator.pushNamed(context, '/formularioLivro').then((value){
                 Livro novoLivro = value as Livro; // cast
-                livros.add(novoLivro);
+                widget.onAddLivro(novoLivro);
 
                 setState(() {
 
@@ -67,9 +72,6 @@ class _PaginaInicioState extends State<PaginaInicio> {
         ],
       bottom: TabBar(
         tabs: abas,
-        onTap: (indice) {
-          Categoria selecionada = widget.categorias[indice];
-        },
       ),
     );
   }
@@ -78,7 +80,7 @@ class _PaginaInicioState extends State<PaginaInicio> {
     return TabBarView(
       children: [
         for (var categoria in widget.categorias)
-          PaginaLista(categoria: categoria,livros: livros),
+          PaginaLista(categoria: categoria,livros: widget.livros),
       ],
     );
   }

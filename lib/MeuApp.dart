@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:folhas_soltas/FormularioCategoria.dart';
 import 'Categoria.dart';
-import 'Formulario.dart';
+import 'FormularioLivro.dart';
+import 'Livro.dart';
 import 'PaginaInicio.dart';
 import 'PaginaCategoria.dart';
 
@@ -17,6 +19,20 @@ class _MeuAppState extends State<MeuApp> {
     Categoria("Default"),
   ];
 
+    // lista de Livros
+  List<Livro> livros = [];
+
+  void adicionarLivro(Livro livro) {
+    setState(() {
+      livros.add(livro);
+    });
+  }
+  void removerLivro(Livro livro) {
+    setState(() {
+      livros.remove(livro);
+    });
+  }
+
   void adicionarCategoria(String nome) {
     setState(() {
       categorias.add(Categoria(nome));
@@ -32,16 +48,25 @@ class _MeuAppState extends State<MeuApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/paginaInicio',
+      initialRoute: '/',
       routes: {
-        '/paginaInicio': (context) => PaginaInicio(categorias: categorias),
-        '/formulario': (context) => Formulario()
+        '/paginaInicio': (context) => PaginaInicio(
+            categorias: categorias,
+            livros: livros,
+            onAddLivro: adicionarLivro,
+            onRemoveLivro: removerLivro
+        ),
+        '/formularioLivro': (context) => FormularioLivro(),
+        '/formularioCategoria': (context) => FormularioCategoria()
       },
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: [
           PaginaInicio(
             categorias: categorias,
+            livros: livros,
+            onAddLivro: adicionarLivro,
+            onRemoveLivro: removerLivro
           ),
           PaginaCategoria(
             categorias: categorias,

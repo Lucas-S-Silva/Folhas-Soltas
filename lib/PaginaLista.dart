@@ -18,28 +18,22 @@ class PaginaLista extends StatelessWidget {
       }
     }
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Lista de Livros",
-      home: Scaffold(
-        body: GridView.count(
-          crossAxisCount: 2,       // duas colunas
-          childAspectRatio: 2 / 3, // retângulo em pé
-          children: [
-            for (var livro in livrosFiltrados)
-              Container(
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                    image: AssetImage("assets/img/${livro.nomeImg}.jpeg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+    return GridView.count(
+      crossAxisCount: 2,       // duas colunas
+      childAspectRatio: 2 / 3, // retângulo em pé
+      children: [
+        for (var livro in livrosFiltrados)
+          Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              image: DecorationImage(
+                image: AssetImage("assets/img/${livro.nomeImg}.jpeg"),
+                fit: BoxFit.cover,
               ),
-          ],
-        ),
-      ),
+            ),
+          ),
+      ],
     );
   }
 }
