@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Categoria.dart';
+import 'Formulario.dart';
 import 'PaginaInicio.dart';
 import 'PaginaCategoria.dart';
 
@@ -31,6 +32,11 @@ class _MeuAppState extends State<MeuApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/paginaInicio',
+      routes: {
+        '/paginaInicio': (context) => PaginaInicio(categorias: categorias),
+        '/formulario': (context) => Formulario()
+      },
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: [

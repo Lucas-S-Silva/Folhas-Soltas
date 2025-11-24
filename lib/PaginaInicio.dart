@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'Categoria.dart';
+import 'Livro.dart';
+import 'PaginaLista.dart';
 
 class PaginaInicio extends StatefulWidget{
   final List<Categoria> categorias;
@@ -9,11 +11,15 @@ class PaginaInicio extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    return _PaginaInicioState();
+    return _PaginaInicioState(categorias: categorias);
   }
 }
 
 class _PaginaInicioState extends State<PaginaInicio> {
+  final List<Categoria> categorias;
+  List<Livro> livros = [];
+
+  _PaginaInicioState({required this.categorias});
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -32,29 +38,38 @@ class _PaginaInicioState extends State<PaginaInicio> {
   AppBar buildAppBar() {
     List<Widget> abas = [];
     widget.categorias.forEach((c) {
-      abas.add(Tab(child: Text(c.nome))
+      abas.add(Tab(child: Text(c.nome),)
       );
     });
     return AppBar(
         title: Text("Folhas Soltas"),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.search),
-            tooltip: 'Pesquisar',
+            icon: const Icon(Icons.add),
+            tooltip: 'Adicionar',
             onPressed: () {
+              Navigator.pushNamed(context, '/formulario').then((value){
+                Livro novoLivro = value as Livro; // cast
+                livros.add(novoLivro);
 
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.filter_alt),
-            tooltip: 'Filtrar',
-            onPressed: () {
+                setState(() {
 
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Livro inserido"),
+                      behavior: SnackBarBehavior.floating,
+
+                    )
+                );
+              });
             },
           ),
         ],
       bottom: TabBar(
         tabs: abas,
+        onTap: (indice) {
+          Categoria selecionada = widget.categorias[indice];
+        },
       ),
     );
   }
@@ -62,12 +77,8 @@ class _PaginaInicioState extends State<PaginaInicio> {
   Widget buildTelaInicial() {
     return TabBarView(
       children: [
-        Center(
-          child: Text(
-            "Conteúdo da categoria:",
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
+        for (var categoria in widget.categorias)
+          PaginaLista(categoria: categoria,livros: livros),
       ],
     );
   }

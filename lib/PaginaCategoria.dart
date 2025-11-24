@@ -34,22 +34,6 @@ class _PaginaCategoriaState extends State<PaginaCategoria> {
   AppBar buildAppBar(){
     return AppBar(
         title: Text("Folhas Soltas"),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.search),
-            tooltip: 'Pesquisar',
-            onPressed: () {
-
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.filter_alt),
-            tooltip: 'Filtrar',
-            onPressed: () {
-
-            },
-          ),
-        ],
     );
   }
 
