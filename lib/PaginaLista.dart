@@ -31,12 +31,12 @@ class _PaginaListaState extends State<PaginaLista>{
           Stack(
             children: [
               Container(
-                margin: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8), //deixa 8px de distancias das outras ?? do lado de fora
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12), //deixa os cantos arreddondados
                   image: DecorationImage(
-                    image: AssetImage("assets/img/${livro.nomeImg}.jpeg"),
-                    fit: BoxFit.cover,
+                    image: AssetImage("assets/img/${livro.nomeImg}.jpeg"), //Solução improvisada para pegar as imagens dos assets
+                    fit: BoxFit.cover, //faz a imagem preencher o espaço inteiro
                   ),
                 ),
                 

@@ -53,8 +53,8 @@ class _PaginaInicioState extends State<PaginaInicio> {
             icon: const Icon(Icons.add),
             tooltip: 'Adicionar',
             onPressed: () {
-              Navigator.pushNamed(context, '/formularioLivro').then((value){
-                Livro novoLivro = value as Livro; // cast
+              Navigator.pushNamed(context, '/formularioLivro').then((value){// valor que veio de FormularioLivro
+                Livro novoLivro = value as Livro;// tratar eesse valor como Livro
                 widget.onAddLivro(novoLivro);
 
                 setState(() {

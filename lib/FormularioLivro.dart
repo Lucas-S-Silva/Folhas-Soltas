@@ -54,7 +54,7 @@ class FormularioLivro extends StatelessWidget {
               controller: nomeController,
               decoration: InputDecoration(labelText: "Nome"),
               validator: (nome) {
-                if (nome == null || nome.isEmpty) {
+                if (nome == null || nome.isEmpty) { //Validação se o campo esta vazio.
                   return "Nome é obrigatório";
                 }
               },
@@ -63,7 +63,7 @@ class FormularioLivro extends StatelessWidget {
               controller: categoriaController,
               decoration: InputDecoration(labelText: "Categoria"),
               validator: (categoria) {
-                if (categoria == null || categoria.isEmpty) {
+                if (categoria == null || categoria.isEmpty) { //Validação se o campo esta vazio.
                   return "Categoria é obrigatório";
                 }
               },
@@ -72,7 +72,7 @@ class FormularioLivro extends StatelessWidget {
               controller: nomeImgController,
               decoration: InputDecoration(labelText: "Nome da Img"),
               validator: (nomeImg) {
-                if (nomeImg == null || nomeImg.isEmpty) {
+                if (nomeImg == null || nomeImg.isEmpty) { //Validação se o campo esta vazio.
                   return "Nome da Img é obrigatório, caso não tenha coloque 'default'";
                 }
 

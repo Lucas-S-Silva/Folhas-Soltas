@@ -61,8 +61,8 @@ class _PaginaCategoriaState extends State<PaginaCategoria> {
         child: Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(context, '/formularioCategoria').then((value){
-            Categoria novoCategoria = value as Categoria; // cast
-            widget.onAddCategoria(novoCategoria.nome);
+            Categoria novoCategoria = value as Categoria;
+            widget.onAddCategoria(novoCategoria.nome);//Adiciona uma categoria
 
             setState(() {
             });
